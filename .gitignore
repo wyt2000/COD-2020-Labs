@@ -5,3 +5,6 @@
 !*.v
 !*.md
 !*.pdf
+!*.jpg
+!*.png
+!*.bmp
