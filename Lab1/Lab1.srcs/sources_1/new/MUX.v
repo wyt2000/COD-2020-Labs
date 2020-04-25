@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
-module MUX(
+module MUX#(parameter WIDTH = 4)(
     input  s,
-    input [3:0] w0,w1,
-    output reg [3:0] o
+    input [WIDTH-1:0] w0,w1,
+    output reg [WIDTH-1:0] o
     );
     always @(*) begin
         if(s) o=w1;

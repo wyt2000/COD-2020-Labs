@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
-module Register(
-    input [3:0] D,
+module Register #(parameter WIDTH = 4)(
+    input [WIDTH-1:0] D,
     input CLK,EN,RST,
-    output reg [3:0] Q
+    output reg [WIDTH-1:0] Q
     );
     always @(posedge CLK or posedge RST) begin
         if(RST) Q<=0;

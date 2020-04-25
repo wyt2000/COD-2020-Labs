@@ -16,7 +16,7 @@ module sort
     input [WIDTH-1:0] x0, x1, x2, x3,	//原始输入数据
     input CLK, RST				//时钟（上升沿有效）、复位（高电平有效）
     );
-    wire [3:0]  i0,i1,i2,i3,i4,i5,r0,r1,r2,r3;
+    wire [WIDTH-1:0]  i0,i1,i2,i3,i4,i5,r0,r1,r2,r3;
     wire of,sf,less;    
     reg m0,m1,m2,m3,m4,m5,en0,en1,en2,en3;
     reg [2:0] SUB=3'b001;
