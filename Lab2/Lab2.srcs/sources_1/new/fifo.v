@@ -11,28 +11,30 @@ module fifo #(parameter WIDTH = 4, //数据宽度
     input en_in, 		//入队列使能，高电平有效
     input en_out,		//出队列使能，高电平有效
     output [7:0] dout, 	//出队列数据
-    output [3:0] count //队列数据计数
+    output [4:0] count //队列数据计数
 );
     wire en,en_i,en_o;
-    wire [3:0] head,tail;
+    wire [4:0] head,tail;
     wire isfull,isempty;
     wire select;
-    reg [1:0] op_h,op_t,op_c;
+    wire we;
     wire [3:0] addr;
+    reg [1:0] op_h,op_t,op_c;
     reg [2:0] state,next_state;
     
     //Data Path
     assign en=1;
-    assign isfull=&count;
+    assign isfull=count[4];
     assign isempty=~|count;
     assign select=(en_i&~en_o);
+    assign we=en_i&~isfull;
     
     EDG EDG_i(clk,rst,en_in,en_i);
     EDG EDG_o(clk,rst,en_out,en_o);
     counter counter_h(clk,rst,op_h,head);
     counter counter_t(clk,rst,op_t,tail);
     counter counter_count(clk,rst,op_c,count);  
-    Block_RAM_wf Block_RAM_wf(.addra(addr),.clka(clk),.dina(din),.douta(dout),.ena(en),.wea(en_i));
+    Block_RAM_wf Block_RAM_wf(.addra(addr),.clka(clk),.dina(din),.douta(dout),.ena(en),.wea(we));
     MUX MUX(select,head,tail,addr);
     
     //Control Unit
