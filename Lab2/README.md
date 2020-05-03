@@ -141,11 +141,11 @@ endmodule
 
 根据 MUX 的选择，addr 仅在进队使能有效的时候被设置为 tail 指针对应的地址，否则为 head 指针对应的地址，所以除了进队的时候 dout 显示队尾（进来的）值，其他情况都显示队首的值。又由上面提到的块状 RAM 的异步读写（这里是写优先模式），dout 的改变会延后一个周期，所以 dout 是很长一段队首元素（0），再接着一小段队尾元素。
 
-![image-20200503110807077](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200503110807077.png)
+![image-20200503110807077](pics/image-20200503110807077.png)
 
 当 count=16 时，即使进队使能有效也不会打开写使能，所以此时不会再有数据进队，dout 一直显示队首元素。
 
-![image-20200503111000247](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200503111000247.png)
+![image-20200503111000247](pics/image-20200503111000247.png)
 
 当出队使能有效时，由于状态机的设计，头指针在下一个时钟周期的上升沿递增，由于 dout 的改变比头指针的改变滞后一个时钟周期，所以我这里为了好看，让 counter 模块在做减法的时候推迟了一个时钟周期，从而 count 的变化与 dout 的变化对齐。它们都比实际的出队使能信号滞后两个时钟周期。
 
