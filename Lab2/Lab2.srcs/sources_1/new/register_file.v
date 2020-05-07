@@ -16,6 +16,6 @@ module register_file				//32 x WIDTH¼Ä´æÆ÷¶Ñ
     assign rd0 = regs[ra0];
     assign rd1 = regs[ra1];
     always@(posedge clk) begin
-        if(we) regs[wa]<=wd;
+        if(we&&wa) regs[wa]<=wd;
     end
 endmodule
