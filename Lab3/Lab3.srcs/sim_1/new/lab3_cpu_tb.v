@@ -1,10 +1,11 @@
 `timescale 1ns / 1ps
 
 module lab3_cpu_tb();
-    reg clk,rst;
-    CPU CPU(clk,rst);
+    reg clk,rst,run;
+    CPU CPU(clk,rst,run);
     initial begin
         clk=0;
+        run=1;
         repeat (500)
             #(5) clk=~clk;
     end
