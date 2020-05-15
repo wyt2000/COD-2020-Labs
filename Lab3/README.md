@@ -64,7 +64,8 @@ module CPU( //单周期 CPU
     assign M4_s=Branch&ALU1_zf;
     assign Jump_addr={ALU2_a[31:28],ins[25:0]<<2};
     assign npc=run?M5_o:pc;
-    assign status={Jump, Branch, RegDst,RegWrite, MemRead, MemtoReg,MemWrite,ALUop, 		ALUSrc, ALU1_zf, npc, pc, ins, Regs_rd1, Regs_rd2, ALU1_res, DataMem_rd};
+    assign status={Jump, Branch, RegDst,RegWrite, MemRead, MemtoReg,MemWrite,ALUop,
+    ALUSrc, ALU1_zf, npc, pc, ins, Regs_rd1, Regs_rd2, ALU1_res, DataMem_rd};
     
     PC_Register PC_Register(npc,clk,en,rst,pc);
     Instruction_Memory Instruction_Memory(.a(pc[31:2]),.spo(ins));
