@@ -14,7 +14,12 @@ module Registers				//32 x 32 ¼Ä´æÆ÷¶Ñ
     input [WIDTH-1:0] wd 		//Ð´¶Ë¿ÚÊý¾Ý
 );
     reg [WIDTH-1:0] regs [31:0]; //32 32-bit binary codes
-    initial $readmemh("C:\\Users\\lenovo\\Desktop\\git\\COD-2020-Labs\\Lab3\\Lab3.srcs\\sources_1\\new\\init.txt",regs);
+    integer i;
+    initial begin
+        for(i=0;i<=32;i=i+1) begin
+            regs[i]=0;
+        end
+    end
     assign rd1 = regs[ra1];
     assign rd2 = regs[ra2];
     assign rd3 = regs[ra3];
