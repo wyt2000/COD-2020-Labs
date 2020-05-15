@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module register_file				//32 x WIDTH寄存器堆
-#(parameter WIDTH = 32) 	//数据宽度
+#(parameter WIDTH = 256) 	//数据宽度
 (   input clk,						//时钟（上升沿有效）
     input [4:0] ra0,				//读端口0地址
     output [WIDTH-1:0] rd0, 	//读端口0数据
@@ -12,7 +12,12 @@ module register_file				//32 x WIDTH寄存器堆
     input [WIDTH-1:0] wd 		//写端口数据
 );
     reg [WIDTH-1:0] regs [31:0]; //32 32-bit binary codes
-    initial $readmemh("C:\\Users\\lenovo\\Desktop\\git\\COD-2020-Labs\\Lab2\\Lab2.srcs\\sources_1\\new\\init.txt",regs);
+    integer i;
+    initial begin
+        for(i=0;i<=32;i=i+1) begin
+            regs[i]=0;
+        end
+    end
     assign rd0 = regs[ra0];
     assign rd1 = regs[ra1];
     always@(posedge clk) begin
