@@ -18,11 +18,11 @@
 
 #### CPU
 
-![image-20200514195122289](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514195122289.png)
+![image-20200514195122289](pics/image-20200514195122289.png)
 
 #### DBU
 
-![image-20200514195753550](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514195753550.png)
+![image-20200514195753550](pics/image-20200514195753550.png)
 
 ### 核心代码
 
@@ -312,11 +312,11 @@ memory_initialization_vector =
 
 #### CPU
 
-![image-20200514215038522](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514215038522.png)
+![image-20200514215038522](pics/image-20200514215038522.png)
 
 首先让 CPU 连续运行：注意到三处 Beq 指令分别从 PC=24 跳到 PC=32 ，从 PC=48 跳到 PC=56，从 PC=60 跳到 PC=72。由于它们都成功跳转了，说明 add 指令和 lw 指令成功执行。又前4条指令都是 addi 指令，故 ALUSrc=1 选择立即数端；由于要写寄存器， RegWrite=1。第5条指令是 add 指令，故 ALUSrc=0 选择寄存器端，RegDst=1 选择 ins[15:11] 对应的寄存器。
 
-![image-20200514220802772](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514220802772.png)
+![image-20200514220802772](pics/image-20200514220802772.png)
 
 再以 PC=24 的 beq 指令为例：首先将 ins[25:21] 和 ins [20:16] 对应的寄存器值读出，此处为 Regs_rd1 和 Regs_rd2 ，都为8。然后经 ALU 作减法运算（注意到，上图的 ALUop 变成了1）得到0，故 ALU1_zf 置1。由数据通路我们知道，当 Branch 和 ALU1_zf 信号均为1时，M4_s=1 ，此时选择 ALU2_res 作为 npc ，此处为 0x20=32，所以下一个时钟周期跳转到 PC=32 的指令。其他指令与上述分析类似，不再赘述。
 
@@ -379,17 +379,17 @@ endmodule
 
 信号和各个模块的具体数据在上文中已经分析过了，对于 DBU ，只需把它们都塞到一个 status 数组中，然后按指定的位进行读取即可，这里也不再进行仿真分析。
 
-![image-20200514231912230](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514231912230.png)
+![image-20200514231912230](pics/image-20200514231912230.png)
 
 首先，我在 PC=16 处关掉 succ，此时处于单步调试模式；然后我取了 step 的上升沿，每按一下 step 就产生一个时钟周期的脉冲 step_y ，此时 run=1，所以 PC=16,20,24 运行的时间更长（实际上，是把当前的 PC 赋值给了 NPC ），说明单步调试模式是正确的。
 
 同时，注意到我的 inc_y 是不断有脉冲的，说明 addr 是不断增加的。直到 addr=8 时停止增加。此时，我们可以看到 seg 的值为1，由于 m_rf=1 ，说明此时看的是存储器的值。即存储器中的 0x08 地址为1，说明上述程序运行结果是正确的。
 
-![image-20200514232641521](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514232641521.png)
+![image-20200514232641521](pics/image-20200514232641521.png)
 
 若干个时钟周期后，我又把 m_rf 设成了0，此时 seg 的值为8号寄存器（$t0）的值，由以上程序容易知道，该值恰为 0x80000000 。综上所述，查看 CPU 运行结果的 DBU 是正确的。
 
-![image-20200514233644496](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200514233644496.png)
+![image-20200514233644496](pics/image-20200514233644496.png)
 
 最后我让 sel=3 ，此时 seg 应该输出指令 ins 的内容，但由于时钟的问题，DBU 比 CPU 滞后一个周期，故 seg 显示的是前一个周期的指令，如 0x08000012 对应的是 j 指令，它对应的 LED 显示信号，只有 Jump，ALUop 和ALUzero 为1，其他均为0。所以查看 CPU 运行过程的 DBU 是正确的。
 
