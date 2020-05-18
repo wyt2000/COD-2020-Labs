@@ -99,35 +99,35 @@ module CPU( //单周期 CPU
     //Control Unit
     always@(*) begin
             {Jump,Branch,MemRead,MemtoReg,MemWrite,ALUSrc,RegWrite,RegDst}=9'b0;
-            ALUop<=3'b111;
+            ALUop=3'b111;
             case(ins[31:26])
                 add: begin
-                    ALUop<=3'b000;
-                    RegWrite<=1;
-                    RegDst<=1;
+                    ALUop=3'b000;
+                    RegWrite=1;
+                    RegDst=1;
                 end
                 addi:begin
-                    ALUop<=3'b000;
-                    RegWrite<=1;
-                    ALUSrc<=1;
+                    ALUop=3'b000;
+                    RegWrite=1;
+                    ALUSrc=1;
                 end
                 lw: begin
-                    ALUop<=3'b000;
-                    MemRead<=1;
-                    MemtoReg<=1;
-                    ALUSrc<=1;
-                    RegWrite<=1;
+                    ALUop=3'b000;
+                    MemRead=1;
+                    MemtoReg=1;
+                    ALUSrc=1;
+                    RegWrite=1;
                 end
                 sw: begin
-                    ALUop<=3'b000;
-                    MemWrite<=1;
-                    ALUSrc<=1;
+                    ALUop=3'b000;
+                    MemWrite=1;
+                    ALUSrc=1;
                 end
                 beq: begin
-                    Branch<=1;
-                    ALUop<=3'b001;
+                    Branch=1;
+                    ALUop=3'b001;
                 end
-                j: Jump<=1;
+                j: Jump=1;
             endcase
         end
 endmodule
