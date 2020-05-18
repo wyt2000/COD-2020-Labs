@@ -14,15 +14,15 @@
 
 ##### 数据通路
 
-![image-20200518192045784](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200518192045784.png)
+![image-20200518192045784](pics/image-20200518192045784.png)
 
 ##### 状态机
 
-![image-20200518192256081](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200518192256081.png)
+![image-20200518192256081](pics\image-20200518192256081.png)
 
 #### DBU
 
-![image-20200518192358437](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20200518192358437.png)
+![image-20200518192358437](pics/image-20200518192358437.png)
 
 ### 核心代码
 
